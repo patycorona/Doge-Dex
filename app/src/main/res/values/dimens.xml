@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="commo_padding_min">8dp</dimen>
+    <dimen name="commo_padding_middle">16dp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="spacing_100dp">100dp</dimen>
+    <dimen name="spacy_4dp">4dp</dimen>
+    <dimen name="spacy_24dp">24dp</dimen>
+    <dimen name="spacy_0dp">0dp</dimen>
+    <dimen name="spacy_60dp">60dp</dimen>
+    <dimen name="spacy_1dp">1dp</dimen>
+    <dimen name="spacy_2dp">2dp</dimen>
+    <dimen name="spacy_6dp">6dp</dimen>
+    <dimen name="spacing_200dp">200dp</dimen>
+    <dimen name="text_size_32sp">32sp</dimen>
+    <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="spacy_182dp">182dp</dimen>
+    <dimen name="spacy_56dp">56dp</dimen>
+</resources>
