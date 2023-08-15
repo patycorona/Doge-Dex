@@ -5,6 +5,8 @@ plugins {
     id 'kotlin-android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
+    //id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -12,7 +14,7 @@ android {
     compileSdk 33
 
     buildFeatures {
-        dataBinding = true
+        dataBinding true
     }
 
     defaultConfig {
@@ -58,6 +60,7 @@ dependencies {
     implementation "androidx.palette:palette-ktx:$supportVersion"
     implementation "androidx.dynamicanimation:dynamicanimation:$supportVersion"
     implementation "androidx.core:core-ktx:$coreKtx"
+    //implementation "io.coil-kt:coil:2.4.0"
 
     //Architecture components
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeExtensions"
@@ -94,9 +97,10 @@ dependencies {
     implementation "com.jakewharton.rxrelay2:rxrelay:$rxrelay2"
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin"
 
-    //Network y Retrofit
+    //Network y Retrofit y moshi
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rxJava2Adapter"
     implementation "com.squareup.okhttp3:logging-interceptor:$loginInterceptor"
 
