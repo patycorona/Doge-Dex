@@ -5,8 +5,8 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/spacing_100dp"
-            android:layout_height="@dimen/spacing_100dp"
+            android:layout_width="@dimen/spacy_100dp"
+            android:layout_height="@dimen/spacy_100dp"
             android:background="@drawable/dog_list_item_background"
             android:id="@+id/dog_list_item_layout">
 

@@ -16,10 +16,13 @@
         android:theme="@style/Theme.DogeDex"
         tools:targetApi="31">
         <activity
-            android:name=".ui.dog.view.DogDetailItemActivity"
+            android:name=".ui.dog.views.DogListActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dog.view.DogListActivity"
+            android:name=".ui.dog.views.DogDetailItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.views.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

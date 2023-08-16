@@ -1,15 +1,19 @@
-package com.example.dogedex.ui.dog.view
+package com.example.dogedex.ui.dog.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.dogedex.R
 import com.example.dogedex.databinding.ActivityDogListBinding
+import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.DOG_KEY
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.GRID_SPAN_COUNT
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.USER_KEY
 import com.example.dogedex.domain.model.DogModel
 import com.example.dogedex.ui.dog.adapter.DogAdapter
 import com.example.dogedex.ui.dog.viewmodel.DogListViewModel
@@ -48,6 +52,14 @@ class DogListActivity : AppCompatActivity() {
         binding = ActivityDogListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val user = intent?.extras?.getParcelable<AuthModel>(USER_KEY)
+
+        if(user == null) {
+            Toast.makeText(this, R.string.error_showing_dog_not_found, Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+        Toast.makeText(this, "BIENVENIDO ${user.authentication_token}", Toast.LENGTH_SHORT).show()
         dogListViewModel.getAllDogs()
 
         binding.loadingWheel.visibility = View.VISIBLE
@@ -55,9 +67,8 @@ class DogListActivity : AppCompatActivity() {
         initObserver()
     }
 
-    private fun initObserver() {
-        dogListViewModel.dogList.observe(this, listDogsObserver)
-    }
+    private fun initObserver() = dogListViewModel.dogList.observe(this, listDogsObserver)
+
 
     private fun initRecycler() {
         val recycler = binding.dogRecyclerview

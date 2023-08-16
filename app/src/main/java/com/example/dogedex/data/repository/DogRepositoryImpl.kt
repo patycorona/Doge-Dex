@@ -7,7 +7,6 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DogRepositoryImpl @Inject constructor(var coreHomeApi: CoreHomeAPI) : DogRepository {
-
     override suspend fun getAllDogs(): MutableList<DogModel> {
         return withContext(Dispatchers.IO) {
             val dogListApiResponse = coreHomeApi.getAllDogs()

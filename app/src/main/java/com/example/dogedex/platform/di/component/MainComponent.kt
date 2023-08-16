@@ -5,8 +5,6 @@ import com.example.dogedex.platform.di.module.RetrofitModule
 import com.example.dogedex.platform.di.module.UseCaseModule
 import dagger.Component
 import javax.inject.Singleton
-
-
 @Singleton
 @Component(
     modules = [
@@ -16,5 +14,4 @@ import javax.inject.Singleton
     ]
 )
 interface MainComponent {
-
 }
