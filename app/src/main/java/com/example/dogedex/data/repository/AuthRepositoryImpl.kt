@@ -15,13 +15,13 @@ class AuthRepositoryImpl @Inject constructor(var coreHomeApi: CoreHomeAPI) : Aut
 
     override suspend fun userRegister(userRequest: UserRequest): AuthModel {
         return withContext(Dispatchers.IO) {
-            AuthModel(ID.toLong(), EMAIL, TOKEN)
+            AuthModel(ID.toLong(), EMAIL, TOKEN) //coreHomeApi.login(loginRequest
         }
     }
 
     override suspend fun login(loginRequest: LoginRequest): AuthModel {
         return withContext(Dispatchers.IO) {
-            AuthModel(ID.toLong(), EMAIL, TOKEN)
+            AuthModel(ID.toLong(), EMAIL, TOKEN)//coreHomeApi.login(loginRequest
         }
     }
 

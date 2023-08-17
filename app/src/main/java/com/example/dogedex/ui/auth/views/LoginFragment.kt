@@ -54,7 +54,7 @@ class LoginFragment(
 
     private val loginResultObserver = Observer<AuthModel> { loginResult ->
 
-        if (loginResult.authentication_token != null){
+        if (loginResult.authentication_token.isNotEmpty()){
              val authModel = AuthModel(loginResult.id,loginResult.email,loginResult.authentication_token)
 
             (activity as LoginActivity)

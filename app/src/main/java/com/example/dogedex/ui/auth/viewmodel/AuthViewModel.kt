@@ -1,5 +1,7 @@
 package com.example.dogedex.ui.auth.viewmodel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,22 +19,34 @@ class AuthViewModel @Inject constructor(
     private val authUseCase: AuthUseCase
 ):ViewModel() {
 
-    private val _auth = MutableLiveData<AuthModel>()
-    val auth: LiveData<AuthModel>
-        get() = _auth
+//    private val _auth = MutableLiveData<AuthModel>()
+//    val auth: LiveData<AuthModel>
+//        get() = _auth
+
+    val auth: MutableLiveData<AuthModel> by lazy {
+        MutableLiveData<AuthModel>()
+    }
 
     fun userRegister(email: String, pwd:String, pwdConfirm:String){
         val userRequest = UserRequest(email,pwd,pwdConfirm)
 
         viewModelScope.launch {
-            _auth.value = authUseCase.userRegister(userRequest)
+            try {
+                auth.value = authUseCase.userRegister(userRequest)
+            }catch (e:Exception){
+                e.message
+            }
         }
     }
 
     fun login(email: String, pwd:String){
         val loginRequest =  LoginRequest(email,pwd)
         viewModelScope.launch {
-            _auth.value = authUseCase.login(loginRequest)
+            try {
+            auth.value = authUseCase.login(loginRequest)
+            }catch (e:Exception){
+                e.message
+            }
         }
     }
 }

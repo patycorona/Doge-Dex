@@ -84,7 +84,7 @@ class SingUpFragment : Fragment() {
 
     private val userRegisterResultObserver = Observer<AuthModel> { userResult ->
 
-        if (userResult.authentication_token != null){
+        if (userResult.authentication_token.isNotEmpty()){
             Toast.makeText(requireContext(), "USUARIO REGISTRADO", Toast.LENGTH_SHORT).show()
             val authModel = AuthModel(userResult.id,userResult.email,userResult.authentication_token)
             (activity as LoginActivity)
