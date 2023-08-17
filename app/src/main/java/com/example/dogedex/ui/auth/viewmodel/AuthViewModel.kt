@@ -1,8 +1,5 @@
 package com.example.dogedex.ui.auth.viewmodel
 
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,10 +15,6 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val authUseCase: AuthUseCase
 ):ViewModel() {
-
-//    private val _auth = MutableLiveData<AuthModel>()
-//    val auth: LiveData<AuthModel>
-//        get() = _auth
 
     val auth: MutableLiveData<AuthModel> by lazy {
         MutableLiveData<AuthModel>()

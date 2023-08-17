@@ -11,7 +11,6 @@ import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dogedex.R
-import com.example.dogedex.data.model.response.AuthResponse
 import com.example.dogedex.databinding.FragmentSingUpBinding
 import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.ui.auth.viewmodel.AuthViewModel
