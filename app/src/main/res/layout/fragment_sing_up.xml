@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.auth.views.SingUpFragment">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacy_24dp"
+            android:textColor="@color/color_primary"
+            android:text="@string/title_registro_usuario"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_bold_italic"
+            android:textSize="@dimen/text_size_24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- TODO: Update blank fragment layout -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ti_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_120dp"
+            android:layout_marginStart="@dimen/spacy_40dp"
+            android:layout_marginEnd="@dimen/spacy_40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColorHint="@color/ic_launcher_background"
+            android:fontFamily="@font/roboto_bold_italic"
+            android:hint="@string/hint_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_200"
+                android:textSize="@dimen/text_size_16sp"
+                android:singleLine="true"
+                android:fontFamily="@font/roboto_bold_italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ti_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacy_40dp"
+            android:layout_marginEnd="@dimen/spacy_40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColorHint="@color/ic_launcher_background"
+            android:fontFamily="@font/roboto_bold_italic"
+            app:layout_constraintTop_toBottomOf="@id/ti_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacy_24dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/text_size_16sp"
+                android:singleLine="true"
+                android:minLines="@integer/min"
+                android:fontFamily="@font/roboto_bold_italic"
+                android:textColorHint="@color/ic_launcher_background"
+                android:inputType="textPassword"
+                android:hint="@string/hint_password"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ti_email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ti_conf_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacy_40dp"
+            android:layout_marginEnd="@dimen/spacy_40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColorHint="@color/ic_launcher_background"
+            android:fontFamily="@font/roboto_bold_italic"
+            app:layout_constraintTop_toBottomOf="@id/ti_pwd">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_conf_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacy_24dp"
+                android:textColor="@color/teal_700"
+                android:textSize="@dimen/text_size_16sp"
+                android:minLines="@integer/min"
+                android:singleLine="true"
+                android:fontFamily="@font/roboto_bold_italic"
+                android:textColorHint="@color/ic_launcher_background"
+                android:inputType="textPassword"
+                android:hint="@string/hint_confirm_password"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ti_email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/btn_registar"
+            android:alpha="0.75"
+            android:layout_marginTop="@dimen/space_80dp"
+            android:elevation="@dimen/spacy_4dp"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/spacy_40dp"
+            android:layout_marginEnd="@dimen/spacy_40dp"
+            android:layout_height="@dimen/spacy_40dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_20sp"
+            android:minLines="@integer/min"
+            android:fontFamily="@font/roboto_bold_italic"
+            android:background="@drawable/bg_buttom"
+            android:text="@string/text_btn_registrar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ti_conf_pwd" />
+
+        <TextView
+            android:id="@+id/img_dogs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacy_24dp"
+            android:background="@drawable/images_dog2"
+            android:layout_marginStart="@dimen/spacy_16dp"
+            android:layout_marginEnd="@dimen/spacy_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lbl_cita"
+            />
+        <TextView
+            android:id="@+id/lbl_cita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_primary"
+            android:text="@string/text_register_user"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_bold_italic"
+            android:gravity="bottom"
+            android:textSize="@dimen/text_size_12sp"
+            android:layout_marginBottom="@dimen/spacy_16dp"
+            android:layout_marginStart="@dimen/spacy_16dp"
+            android:layout_marginEnd="@dimen/spacy_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

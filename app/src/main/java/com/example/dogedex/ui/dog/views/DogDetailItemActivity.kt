@@ -1,11 +1,10 @@
-package com.example.dogedex.ui.dog.view
+package com.example.dogedex.ui.dog.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-//import coil.load
 import com.example.dogedex.R
 import com.example.dogedex.databinding.ActivityDogDetailItemBinding
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.DOG_KEY

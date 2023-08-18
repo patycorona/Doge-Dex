@@ -12,13 +12,13 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/secondary_background">
+        android:background="@color/ic_launcher_background">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/spacing_200dp"
+            android:paddingBottom="@dimen/spacy_200dp"
             android:scrollbars="none">
 
             <FrameLayout
@@ -28,29 +28,29 @@
                 <ImageView
                     android:id="@+id/dog_image"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/spacing_200dp"
+                    android:layout_height="@dimen/spacy_200dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/spacy_56dp"
                     android:adjustViewBounds="true"
-                    android:elevation="@dimen/commo_padding_min" />
+                    android:elevation="@dimen/spacy_8dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/commo_padding_min"
+                    android:layout_marginStart="@dimen/spacy_8dp"
                     android:layout_marginTop="@dimen/spacy_182dp"
-                    android:layout_marginEnd="@dimen/commo_padding_min"
+                    android:layout_marginEnd="@dimen/spacy_8dp"
                     android:background="@drawable/detail_info_background"
                     android:elevation="@dimen/spacy_4dp"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/commo_padding_min">
+                    android:paddingBottom="@dimen/spacy_8dp">
 
                     <TextView
                         android:id="@+id/dog_index"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:padding="@dimen/commo_padding_min"
+                        android:padding="@dimen/spacy_8dp"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/text_size_24sp"
                         tools:text="#25" />
@@ -62,7 +62,7 @@
                         android:layout_marginTop="@dimen/spacy_24dp"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
-                        android:padding="@dimen/commo_padding_min"
+                        android:padding="@dimen/spacy_8dp"
                         android:text="@{dog.name_es}"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/text_size_32sp"
@@ -76,11 +76,11 @@
 
                         <ProgressBar
                             style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="@dimen/spacing_200dp"
+                            android:layout_width="@dimen/spacy_200dp"
                             android:layout_height="@dimen/spacy_6dp"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/commo_padding_middle"
+                            android:layout_marginStart="@dimen/spacy_16dp"
                             android:background="@drawable/progressbar_background"
                             android:elevation="@dimen/spacy_2dp"
                             android:indeterminate="false"
@@ -112,7 +112,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/commo_padding_min"
+                        android:layout_marginTop="@dimen/spacy_8dp"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:text="@{dog.temperament}"
@@ -123,10 +123,10 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacy_1dp"
-                        android:layout_marginStart="@dimen/commo_padding_min"
-                        android:layout_marginTop="@dimen/commo_padding_min"
-                        android:layout_marginEnd="@dimen/commo_padding_min"
-                        android:layout_marginBottom="@dimen/commo_padding_middle"
+                        android:layout_marginStart="@dimen/spacy_8dp"
+                        android:layout_marginTop="@dimen/spacy_8dp"
+                        android:layout_marginEnd="@dimen/spacy_8dp"
+                        android:layout_marginBottom="@dimen/spacy_16dp"
                         android:background="@color/divider" />
 
                     <LinearLayout
@@ -155,7 +155,7 @@
                                 style="@style/DetailSectionInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/commo_padding_min"
+                                android:layout_marginTop="@dimen/spacy_8dp"
                                 android:text="@{dog.weight_female}"
                                 tools:text="13 - 14.5 kg" />
 
@@ -170,7 +170,7 @@
                                 style="@style/DetailSectionInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/commo_padding_min"
+                                android:layout_marginTop="@dimen/spacy_8dp"
                                 android:text="@{dog.height_female}"
                                 tools:text="35 - 37 cm" />
 
@@ -184,9 +184,9 @@
                         <View
                             android:layout_width="@dimen/spacy_1dp"
                             android:layout_height="@dimen/spacy_60dp"
-                            android:layout_marginStart="@dimen/commo_padding_min"
-                            android:layout_marginEnd="@dimen/commo_padding_min"
-                            android:background="@color/divider" />
+                            android:layout_marginStart="@dimen/spacy_8dp"
+                            android:layout_marginEnd="@dimen/spacy_8dp"
+                            android:background="@color/dark_gray" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -212,14 +212,14 @@
                         <View
                             android:layout_width="@dimen/spacy_1dp"
                             android:layout_height="@dimen/spacy_60dp"
-                            android:layout_marginStart="@dimen/commo_padding_min"
-                            android:layout_marginEnd="@dimen/commo_padding_min"
+                            android:layout_marginStart="@dimen/spacy_8dp"
+                            android:layout_marginEnd="@dimen/spacy_8dp"
                             android:background="@color/divider" />
 
                         <LinearLayout
                             android:layout_width="@dimen/spacy_0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="@integer/min"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 
@@ -235,7 +235,7 @@
                                 style="@style/DetailSectionInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/commo_padding_min"
+                                android:layout_marginTop="@dimen/spacy_8dp"
                                 android:text="@{dog.weight_male}"
                                 tools:text="13 - 14.5 kg" />
 
@@ -250,7 +250,7 @@
                                 style="@style/DetailSectionInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/commo_padding_min"
+                                android:layout_marginTop="@dimen/spacy_8dp"
                                 android:text="@{dog.height_male}"
                                 tools:text="37 - 40 cm" />
 

@@ -9,5 +9,21 @@
     <string name="error_showing_dog_not_found">error showing dog not found</string>
     <string name="dog_index_format">#%d</string>
     <string name="dog_life_expectancy_format">%s years</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_email">E-mail:</string>
+    <string name="hint_password">Password:</string>
+    <string name="hint_confirm_password">Confirm Password:</string>
+    <string name="tv_registro">Registrate aqui</string>
+    <string name="tv_title_registro">do not have an account?</string>
+    <string name="text_ingresar">Ingresar</string>
+    <string name="text_btn_registrar">Registrar</string>
+    <string name="title_registro_usuario">Registro Usuario</string>
+    <string name="tv_text_login">\"Hasta que no hayas amado a un animal, \nuna parte de tu alma permanecerá dormida\", \nAnatole France.</string>
+    <string name="text_register_user">\"Algunos ángeles no tienen alas, tienen cuatro patas\".</string>
+    <string name="lbl_email_error">E-mail is not valid</string>
+    <string name="lbl_password_error">Password is not valid</string>
+    <string name="lbl_passwords_error">Passwords not match</string>
+    <string name="error_not_found">An error has occurred</string>
 
 </resources>
