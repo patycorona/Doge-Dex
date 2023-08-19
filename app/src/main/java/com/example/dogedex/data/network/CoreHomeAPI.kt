@@ -3,15 +3,12 @@ package com.example.dogedex.data.network
 import com.example.dogedex.data.model.request.DogToUserRequest
 import com.example.dogedex.data.model.request.LoginRequest
 import com.example.dogedex.data.model.request.UserRequest
-import com.example.dogedex.data.model.response.ApiServiceInterceptor
 import com.example.dogedex.data.model.response.AuthResponse
 import com.example.dogedex.data.model.response.DefaultResponse
 import com.example.dogedex.data.model.response.DogAllResponse
-import com.example.dogedex.data.model.response.UserRegisterResponse
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.NEEDS_AUTH_HEADER_KAY
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
