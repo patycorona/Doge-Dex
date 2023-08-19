@@ -13,6 +13,8 @@ class ConstantGeneral {
         const val USER_KEY = "user"
         const val NEEDS_AUTH_HEADER_KAY = "needs_authentication"
         const val ERROR_NOT_FOUND= "error_not_found"
+        const val AUTH_REQUEST  = "Need  to be authentication to perform"
+        const val AUTH_TOKEN = "AUTH-TOKEN"
 
     }
 }

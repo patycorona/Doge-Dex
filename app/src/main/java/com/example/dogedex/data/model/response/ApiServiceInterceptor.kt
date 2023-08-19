@@ -1,5 +1,7 @@
 package com.example.dogedex.data.model.response
 
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.AUTH_REQUEST
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.AUTH_TOKEN
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.NEEDS_AUTH_HEADER_KAY
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -18,12 +20,11 @@ object ApiServiceInterceptor: Interceptor {
         val request = chain.request()
         val requestBuilder = request.newBuilder()
         if (request.header(NEEDS_AUTH_HEADER_KAY) != null){
-            //need credencial
             if (sessionToken  == null){
-                throw RuntimeException("Need  to be authentication to perform")
+                throw RuntimeException(AUTH_REQUEST)
             }
             else{
-                requestBuilder.addHeader("AUTH-TOKEN", sessionToken!!)
+                requestBuilder.addHeader(AUTH_TOKEN, sessionToken!!)
             }
         }
         return chain.proceed(requestBuilder.build())
