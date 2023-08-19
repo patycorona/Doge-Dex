@@ -6,6 +6,7 @@ class ConstantGeneral {
         const val DOG_KEY = "dog"
         const val EMAIL = "Admin@admin.com"
         const val ID = 2
+        const val UNO = 1
         const val EMPTY =""
         const val SUCCESSFUL_USER_REGISTER ="Usuario registrado correctamente"
         const val ADDED_DOG = "Dog Added to list"

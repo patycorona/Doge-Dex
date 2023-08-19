@@ -1,6 +1,7 @@
 package com.example.dogedex.domain.model
 
 import android.os.Parcelable
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.UNO
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -21,10 +22,10 @@ data class DogModel(
 
     override fun compareTo(other: DogModel): Int {
         return if (this.index > other.index){
-            1
+            UNO
         }
         else {
-            -1
+            -UNO
         }
     }
 }
