@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.dogedex.R
+import com.example.dogedex.data.model.response.ApiServiceInterceptor
 import com.example.dogedex.databinding.ActivityDogListBinding
 import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.DOG_KEY
@@ -26,12 +27,13 @@ class DogListActivity : AppCompatActivity() {
     lateinit var binding: ActivityDogListBinding
     private val dogListViewModel: DogListViewModel by viewModels()
 
-    private val listDogsObserver = Observer<MutableList<DogModel>> { dogModel ->
+    private val listDogsObserver = Observer<List<DogModel>> { dogModel ->
         dogModel?.let {
             val adapter = DogAdapter(
                 it,
                 this,
-                onItemClickListener)
+                onItemClickListener,
+                onLongListItemClickListener)
             binding?.dogRecyclerview?.adapter = adapter
             adapter.notifyDataSetChanged()
         }
@@ -40,11 +42,19 @@ class DogListActivity : AppCompatActivity() {
 
     private val onItemClickListener: ((dogModel: DogModel) -> Unit) = { dogModel ->
 
-        if(dogModel != null){
-            val intent = Intent(this, DogDetailItemActivity::class.java)
-            intent.putExtra(DOG_KEY,dogModel)
-            startActivity(intent)
+        val intent = Intent(this, DogDetailItemActivity::class.java)
+        intent.putExtra(DOG_KEY,dogModel)
+        startActivity(intent)
+    }
+
+    private val onLongListItemClickListener : ((dogModel: DogModel) -> Unit) = { idDog ->
+        if (idDog != null){
+            //deberia hacer la llamada para que se conecte con el viewmodel, useCase,
+            // repository, repositoryImpl y home Api
+            Toast.makeText(this,"Add ${idDog.name_es}", Toast.LENGTH_SHORT).show()
+            addDogToUser(idDog.id)
         }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,9 +68,12 @@ class DogListActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.error_showing_dog_not_found, Toast.LENGTH_SHORT).show()
             finish()
             return
+        }else{
+            ApiServiceInterceptor.setSessionToken(user.authentication_token)
         }
+
         Toast.makeText(this, "BIENVENIDO ${user.authentication_token}", Toast.LENGTH_SHORT).show()
-        dogListViewModel.getAllDogs()
+        dogListViewModel.getdogColection()
 
         binding.loadingWheel.visibility = View.VISIBLE
         initRecycler()
@@ -69,6 +82,9 @@ class DogListActivity : AppCompatActivity() {
 
     private fun initObserver() = dogListViewModel.dogList.observe(this, listDogsObserver)
 
+    private fun addDogToUser(id:Long){
+        dogListViewModel.addDogToUser(id)
+    }
 
     private fun initRecycler() {
         val recycler = binding.dogRecyclerview

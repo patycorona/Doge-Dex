@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <FrameLayout
+        android:padding="@dimen/spacy_8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -13,8 +16,27 @@
             <ImageView
                 android:id="@+id/dog_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"/>
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_dog_name"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/spacy_0dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/roboto_bold_italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dog_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Name Dog"
+                android:elevation="@dimen/spacy_2dp"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

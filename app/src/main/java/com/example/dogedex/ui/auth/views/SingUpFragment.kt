@@ -11,7 +11,6 @@ import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dogedex.R
-import com.example.dogedex.data.model.response.AuthResponse
 import com.example.dogedex.databinding.FragmentSingUpBinding
 import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.ui.auth.viewmodel.AuthViewModel
@@ -84,7 +83,7 @@ class SingUpFragment : Fragment() {
 
     private val userRegisterResultObserver = Observer<AuthModel> { userResult ->
 
-        if (userResult.authentication_token != null){
+        if (userResult.authentication_token.isNotEmpty()){
             Toast.makeText(requireContext(), "USUARIO REGISTRADO", Toast.LENGTH_SHORT).show()
             val authModel = AuthModel(userResult.id,userResult.email,userResult.authentication_token)
             (activity as LoginActivity)

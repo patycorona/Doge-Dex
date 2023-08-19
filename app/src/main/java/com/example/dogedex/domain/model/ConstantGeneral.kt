@@ -8,5 +8,7 @@ class ConstantGeneral {
         const val ID = 2
         const val TOKEN = "loUhg012457jK"
         const val USER_KEY = "user"
+        const val NEEDS_AUTH_HEADER_KAY = "needs_authentication"
+
     }
 }
