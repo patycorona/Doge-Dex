@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="dog"
             type="com.example.dogedex.domain.model.DogModel" />
@@ -84,8 +83,8 @@
                             android:background="@drawable/progressbar_background"
                             android:elevation="@dimen/spacy_2dp"
                             android:indeterminate="false"
-                            android:max="10"
-                            android:progress="10"
+                            android:max="@integer/num_10"
+                            android:progress="@integer/num_10"
                             android:progressTint="@color/color_primary" />
 
                         <ImageView

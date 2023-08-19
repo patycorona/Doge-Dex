@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.example.dogedex.R
 import com.example.dogedex.databinding.FragmentLoginBinding
 import com.example.dogedex.domain.model.AuthModel
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_NOT_FOUND
 import com.example.dogedex.ui.auth.viewmodel.AuthViewModel
 import com.example.dogedex.ui.component.Screen
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +61,7 @@ class LoginFragment(
             (activity as LoginActivity)
                 .changeScreen(Screen.DogListActivity, authModel)
         }else{
-            Toast.makeText(requireContext(), getString(R.string.error_not_found), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), ERROR_NOT_FOUND, Toast.LENGTH_SHORT).show()
         }
     }
 

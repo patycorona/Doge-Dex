@@ -12,6 +12,7 @@ import com.example.dogedex.R
 import com.example.dogedex.data.model.response.ApiServiceInterceptor
 import com.example.dogedex.databinding.ActivityDogListBinding
 import com.example.dogedex.domain.model.AuthModel
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ADDED_DOG
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.DOG_KEY
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.GRID_SPAN_COUNT
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.USER_KEY
@@ -49,9 +50,7 @@ class DogListActivity : AppCompatActivity() {
 
     private val onLongListItemClickListener : ((dogModel: DogModel) -> Unit) = { idDog ->
         if (idDog != null){
-            //deberia hacer la llamada para que se conecte con el viewmodel, useCase,
-            // repository, repositoryImpl y home Api
-            Toast.makeText(this,"Add ${idDog.name_es}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,ADDED_DOG + " ${idDog.name_es}", Toast.LENGTH_SHORT).show()
             addDogToUser(idDog.id)
         }
 
@@ -72,7 +71,6 @@ class DogListActivity : AppCompatActivity() {
             ApiServiceInterceptor.setSessionToken(user.authentication_token)
         }
 
-        Toast.makeText(this, "BIENVENIDO ${user.authentication_token}", Toast.LENGTH_SHORT).show()
         dogListViewModel.getdogColection()
 
         binding.loadingWheel.visibility = View.VISIBLE

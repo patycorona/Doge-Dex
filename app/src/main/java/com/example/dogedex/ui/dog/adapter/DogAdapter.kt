@@ -41,7 +41,7 @@ class DogAdapter(
             binding.apply {
 
                 dogListItemLayout.setOnClickListener{
-                    dogListItemLayout.setBackgroundColor(ctx.getColor(R.color.white))
+                    binding.dogListItemLayout.setBackgroundResource(R.drawable.bg_item_dog_list)
                     onListItemClickListener.invoke(dataSource)
                 }
                 dogListItemLayout.setOnLongClickListener {

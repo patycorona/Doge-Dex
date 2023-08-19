@@ -26,10 +26,10 @@ object RetrofitModule {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         httpClient = OkHttpClient.Builder()
-            .addInterceptor(ApiServiceInterceptor) //interceptor .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+            .addInterceptor(ApiServiceInterceptor)
             .addNetworkInterceptor { chain ->
                 val request: Request =
-                    chain.request().newBuilder() // .addHeader(Constant.Header, authToken)
+                    chain.request().newBuilder()
                         .build()
                 chain.proceed(request)
             }.build()

@@ -10,6 +10,7 @@ import com.example.dogedex.R
 import com.example.dogedex.databinding.ActivityLoginBinding
 import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.domain.model.ConstantGeneral
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_NOT_FOUND
 import com.example.dogedex.ui.component.Screen
 import com.example.dogedex.ui.dog.views.DogListActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                 Screen.DogListActivity -> { openDogListActivity(auth) }
                 else -> {
                     Toast.makeText(this@LoginActivity,
-                        getString(R.string.error_not_found),Toast.LENGTH_SHORT).show()
+                        ERROR_NOT_FOUND,Toast.LENGTH_SHORT).show()
                 }
             }
         }
