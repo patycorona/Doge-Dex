@@ -36,7 +36,7 @@ class AuthViewModel @Inject constructor(
         val loginRequest =  LoginRequest(email,pwd)
         viewModelScope.launch {
             try {
-            auth.value = authUseCase.login(loginRequest)
+                auth.value = authUseCase.login(loginRequest)
             }catch (e:Exception){
                 e.message
             }

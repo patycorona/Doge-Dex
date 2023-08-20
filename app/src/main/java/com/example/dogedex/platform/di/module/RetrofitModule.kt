@@ -1,5 +1,6 @@
 package com.example.dogedex.platform.di.module
 
+import com.example.dogedex.data.model.response.ApiServiceInterceptor
 import com.example.dogedex.data.network.Constant
 import com.example.dogedex.data.network.CoreHomeAPI
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -12,7 +13,6 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.concurrent.TimeUnit
 
 var CONSTANT = 100
 
@@ -26,12 +26,10 @@ object RetrofitModule {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         httpClient = OkHttpClient.Builder()
-            .addInterceptor(interceptor) // .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
-            .connectTimeout(CONSTANT.toLong(), TimeUnit.SECONDS)
-            .readTimeout(CONSTANT.toLong(), TimeUnit.SECONDS)
+            .addInterceptor(ApiServiceInterceptor)
             .addNetworkInterceptor { chain ->
                 val request: Request =
-                    chain.request().newBuilder() // .addHeader(Constant.Header, authToken)
+                    chain.request().newBuilder()
                         .build()
                 chain.proceed(request)
             }.build()

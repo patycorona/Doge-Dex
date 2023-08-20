@@ -13,6 +13,9 @@ import androidx.lifecycle.Observer
 import com.example.dogedex.R
 import com.example.dogedex.databinding.FragmentSingUpBinding
 import com.example.dogedex.domain.model.AuthModel
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.EMPTY
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_NOT_FOUND
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.SUCCESSFUL_USER_REGISTER
 import com.example.dogedex.ui.auth.viewmodel.AuthViewModel
 import com.example.dogedex.ui.component.Screen
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,9 +57,9 @@ class SingUpFragment : Fragment() {
     private fun validaCampos() {
         binding?.apply {
 
-            tiEmail.error = ""
-            tiPwd.error = ""
-            tiConfPwd.error = ""
+            tiEmail.error = EMPTY
+            tiPwd.error = EMPTY
+            tiConfPwd.error = EMPTY
 
             val email = edUserName.text.toString()
             if(email.isNullOrEmpty()){
@@ -84,12 +87,12 @@ class SingUpFragment : Fragment() {
     private val userRegisterResultObserver = Observer<AuthModel> { userResult ->
 
         if (userResult.authentication_token.isNotEmpty()){
-            Toast.makeText(requireContext(), "USUARIO REGISTRADO", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), SUCCESSFUL_USER_REGISTER, Toast.LENGTH_SHORT).show()
             val authModel = AuthModel(userResult.id,userResult.email,userResult.authentication_token)
             (activity as LoginActivity)
                 .changeScreen(Screen.LoginActivity,authModel )
         }else{
-            Toast.makeText(requireContext(), "OCURRIO UN ERROR", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), ERROR_NOT_FOUND, Toast.LENGTH_SHORT).show()
         }
     }
 

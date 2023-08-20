@@ -1,6 +1,7 @@
 package com.example.dogedex.domain.model
 
 import android.os.Parcelable
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.UNO
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -15,7 +16,18 @@ data class DogModel(
     val life_expectancy:String,
     val temperament:String,
     val weight_female:String,
-    val weight_male:String
-) : Parcelable
+    val weight_male:String,
+    val inCollection:Boolean = true
+) : Parcelable, Comparable<DogModel>{
+
+    override fun compareTo(other: DogModel): Int {
+        return if (this.index > other.index){
+            UNO
+        }
+        else {
+            -UNO
+        }
+    }
+}
 
 
