@@ -17,7 +17,7 @@ data class DogModel(
     val temperament:String,
     val weight_female:String,
     val weight_male:String,
-    val inCollection:Boolean = true
+    val inCollection:Boolean = false
 ) : Parcelable, Comparable<DogModel>{
 
     override fun compareTo(other: DogModel): Int {

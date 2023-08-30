@@ -59,11 +59,14 @@ class LoginFragment(
              val authModel = AuthModel(loginResult.id,loginResult.email,loginResult.authentication_token)
 
             (activity as LoginActivity)
-                .changeScreen(Screen.DogListActivity, authModel)
+                .changeScreen(Screen.MainActivity, authModel)
+
+
         }else{
             Toast.makeText(requireContext(), ERROR_NOT_FOUND, Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun validaCampos() {
         binding?.apply {

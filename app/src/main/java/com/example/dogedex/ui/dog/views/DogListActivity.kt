@@ -21,7 +21,6 @@ import com.example.dogedex.ui.dog.adapter.DogAdapter
 import com.example.dogedex.ui.dog.viewmodel.DogListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class DogListActivity : AppCompatActivity() {
 

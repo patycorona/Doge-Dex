@@ -1,5 +1,6 @@
 package com.example.dogedex.ui.auth.views
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.example.dogedex.databinding.ActivityLoginBinding
 import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.domain.model.ConstantGeneral
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_NOT_FOUND
+import com.example.dogedex.ui.MainActivity
 import com.example.dogedex.ui.component.Screen
 import com.example.dogedex.ui.dog.views.DogListActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
        changeScreen(Screen.LoginFragment, AuthModel())
+
     }
 
     private fun changeFragment(fragment: Fragment) {
@@ -42,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
                 Screen.LoginFragment -> { openLoginFragment(auth) }
                 Screen.SingUpFragment -> { openSingUpFragment() }
                 Screen.DogListActivity -> { openDogListActivity(auth) }
+                Screen.MainActivity -> { openMainActivity(auth) }
                 else -> {
                     Toast.makeText(this@LoginActivity,
                         ERROR_NOT_FOUND,Toast.LENGTH_SHORT).show()
@@ -50,13 +54,21 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun openLoginFragment( auhModel: AuthModel?) = changeFragment(LoginFragment.newInstance(auhModel))
 
     private fun openSingUpFragment() = changeFragment(SingUpFragment.newInstance())
 
-    private fun openDogListActivity(auhModel: AuthModel?){
+    private fun openDogListActivity(authModel: AuthModel?){
+
         val intent = Intent(this, DogListActivity::class.java)
-        intent.putExtra(ConstantGeneral.USER_KEY,auhModel)
+        intent.putExtra(ConstantGeneral.USER_KEY,authModel)
+        startActivity(intent)
+    }
+
+    private fun openMainActivity(authModel: AuthModel?){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(ConstantGeneral.USER_KEY,authModel)
         startActivity(intent)
     }
 }

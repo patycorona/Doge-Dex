@@ -25,4 +25,5 @@
     <string name="lbl_password_error">Password is not valid</string>
     <string name="lbl_passwords_error">Passwords not match</string>
 
+
 </resources>

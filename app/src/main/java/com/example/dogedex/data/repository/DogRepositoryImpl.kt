@@ -63,7 +63,7 @@ class DogRepositoryImpl @Inject constructor(private var coreHomeApi: CoreHomeAPI
                 it
             }else{
                 DogModel(it.id,it.index, EMPTY,EMPTY,EMPTY,EMPTY,
-                    EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, inCollection = false)
+                    EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, inCollection = true)
             }
         }.sorted()
 

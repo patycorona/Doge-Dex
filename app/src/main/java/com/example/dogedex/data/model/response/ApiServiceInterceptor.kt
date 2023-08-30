@@ -13,7 +13,6 @@ object ApiServiceInterceptor: Interceptor {
 
     fun setSessionToken(sessionToken:String){
         this.sessionToken = sessionToken
-
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
