@@ -8,5 +8,6 @@ interface DogRepository {
     suspend fun getAllDogs():List<DogModel>
     suspend fun addDogToUser(dogToUserRequest: DogToUserRequest): DefaultResponse
     suspend fun getDogCollection():List<DogModel>
+    suspend fun getDogByMlid(mlDogId: String): DogModel
 
 }

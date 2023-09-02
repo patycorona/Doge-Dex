@@ -30,7 +30,7 @@
             android:name=".ui.dog.views.DogDetailItemActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.views.MainActivity"
             android:exported="false"></activity>
         <activity
             android:name=".ui.auth.views.LoginActivity"

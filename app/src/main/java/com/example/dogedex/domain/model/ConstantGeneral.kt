@@ -24,5 +24,9 @@ class ConstantGeneral {
         const val PHOTO_URI_KEY = "photo_uri"
         const val ERROR_PHOTO_URI = "Error showing image no photo uri"
 
+        const val MAX_RECOGNITION_DOG_RESULTS = 5
+        const val MODEL_PATH = "model.tflite"
+        const val LABEL_PATH = "labels.txt"
+
     }
 }

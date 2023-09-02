@@ -11,4 +11,6 @@ class DogUseCase @Inject constructor(var dogRepository: DogRepository) {
         dogRepository.addDogToUser(dogToUserRequest)
 
     suspend fun getDogCollection():List<DogModel> = dogRepository.getDogCollection()
+
+    suspend fun getDogByMlid(mlDogId: String):DogModel = dogRepository.getDogByMlid(mlDogId)
 }

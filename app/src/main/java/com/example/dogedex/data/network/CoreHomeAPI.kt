@@ -6,11 +6,13 @@ import com.example.dogedex.data.model.request.UserRequest
 import com.example.dogedex.data.model.response.AuthResponse
 import com.example.dogedex.data.model.response.DefaultResponse
 import com.example.dogedex.data.model.response.DogAllResponse
+import com.example.dogedex.data.model.response.DogApiResponse
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.NEEDS_AUTH_HEADER_KAY
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface CoreHomeAPI {
 
@@ -37,6 +39,10 @@ interface CoreHomeAPI {
     @GET("dogs")
     @Headers("Content-Type: application/json ")
     suspend fun getDogCollection(): DogAllResponse
+
+    @GET("find_dog_by_ml_id")
+    @Headers("Content-Type: application/json ")
+    suspend fun getDogByMlid(@Query("ml_id") mlid: String): DogApiResponse
 
 }
 

@@ -66,7 +66,13 @@ class DogRepositoryImpl @Inject constructor(private var coreHomeApi: CoreHomeAPI
                     EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, inCollection = true)
             }
         }.sorted()
+    }
 
+    override suspend fun getDogByMlid(mlDogId: String): DogModel {
+        return withContext(Dispatchers.IO){
+            val TopFive = coreHomeApi.getDogByMlid(mlDogId)
+            TopFive.data.dog
+        }
     }
 
 }

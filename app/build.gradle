@@ -124,6 +124,10 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     implementation "androidx.camera:camera-view:$camerax_version"
 
+    //TensorFlow lite
+    implementation "org.tensorflow:tensorflow-lite:0.0.0-nightly-SNAPSHOT"
+    implementation "org.tensorflow:tensorflow-lite-support:0.1.0"
+
     // For instrumentation tests
     testImplementation "junit:junit:$jUnit"
     testImplementation "org.assertj:assertj-core:$assertJVersion"

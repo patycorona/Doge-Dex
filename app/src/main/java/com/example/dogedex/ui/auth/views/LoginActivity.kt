@@ -12,7 +12,7 @@ import com.example.dogedex.databinding.ActivityLoginBinding
 import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.domain.model.ConstantGeneral
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_NOT_FOUND
-import com.example.dogedex.ui.MainActivity
+import com.example.dogedex.ui.main.views.MainActivity
 import com.example.dogedex.ui.component.Screen
 import com.example.dogedex.ui.dog.views.DogListActivity
 import dagger.hilt.android.AndroidEntryPoint
