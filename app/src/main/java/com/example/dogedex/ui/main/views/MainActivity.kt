@@ -8,8 +8,10 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.Rect
 import android.graphics.YuvImage
+import android.media.Image
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -146,13 +148,19 @@ class MainActivity : AppCompatActivity() {
                 .build()
             imageAnalisis.setAnalyzer(cameraExecutor) { imageProxy ->
 
-                val bitmap = convertImageProxyToBitmap(imageProxy)
-                    if(bitmap != null){
+                if (imageProxy != null) {
+
+                    //asi se usaria en la segunda forma de convertir a bitmap
+//                    val bitmap = imageProxy.image.toBitmap()
+
+                    val bitmap = convertImageProxyToBitmap(imageProxy)
+                    if (bitmap != null) {
                         val dogRecognition = classfier.recognizeImage(bitmap).first()
                         enableTakePhotoButtom(dogRecognition)
                     }
+                    imageProxy.close()
+                }
 
-                imageProxy.close()
             }
 
             cameraProvider.bindToLifecycle(
@@ -176,12 +184,38 @@ class MainActivity : AppCompatActivity() {
        }
     }
 
+
+
+   // Esta es otra forma de convertir una imagen a bitmap
+
+    fun Image.toBitmap(): Bitmap {
+        val yBuffer = planes[0].buffer // Y
+        val vuBuffer = planes[2].buffer // VU
+
+        val ySize = yBuffer.remaining()
+        val vuSize = vuBuffer.remaining()
+
+        val nv21 = ByteArray(ySize + vuSize)
+
+        yBuffer.get(nv21, 0, ySize)
+        vuBuffer.get(nv21, ySize, vuSize)
+
+        val yuvImage = YuvImage(nv21, ImageFormat.NV21, this.width, this.height, null)
+        val out = ByteArrayOutputStream()
+        yuvImage.compressToJpeg(Rect(0, 0, yuvImage.width, yuvImage.height), 50, out)
+        val imageBytes = out.toByteArray()
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    }
+
+
+
+
     @SuppressLint("UnsafeOptInUsageError")
     private fun convertImageProxyToBitmap(imageProxy: ImageProxy): Bitmap?{
         val image = imageProxy.image ?: return null
         val yBuffer = image.planes[0].buffer //Y
         val uBuffer = image.planes[1].buffer //u
-        val vBuffer = image.planes[3].buffer //V
+        val vBuffer = image.planes[2].buffer //V
 
         val ySize = yBuffer.remaining()
         val uSize = uBuffer.remaining()
@@ -224,6 +258,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun requestCameraPermission(){
+        Log.e("MPX", "requestCameraPermission: " + Build.VERSION.SDK_INT , )
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             when {
                 ContextCompat.checkSelfPermission(
