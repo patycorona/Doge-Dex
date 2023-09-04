@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.example.dogedex.R
 import com.example.dogedex.databinding.FragmentLoginBinding
 import com.example.dogedex.domain.model.AuthModel
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.EMPTY
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_NOT_FOUND
 import com.example.dogedex.ui.auth.viewmodel.AuthViewModel
 import com.example.dogedex.ui.component.Screen
@@ -56,11 +57,10 @@ class LoginFragment(
     private val loginResultObserver = Observer<AuthModel> { loginResult ->
 
         if (loginResult.authentication_token.isNotEmpty()){
-             val authModel = AuthModel(loginResult.id,loginResult.email,loginResult.authentication_token)
 
+             val authModel = AuthModel(loginResult.id,loginResult.email,loginResult.authentication_token)
             (activity as LoginActivity)
                 .changeScreen(Screen.MainActivity, authModel)
-
 
         }else{
             Toast.makeText(requireContext(), ERROR_NOT_FOUND, Toast.LENGTH_SHORT).show()
@@ -71,8 +71,8 @@ class LoginFragment(
     private fun validaCampos() {
         binding?.apply {
 
-            tiEmail.error = ""
-            tiPwd.error = ""
+            tiEmail.error = EMPTY
+            tiPwd.error = EMPTY
 
             val email = edUserName.text.toString()
             if(email.isNullOrEmpty()){ //!validEmail(email)

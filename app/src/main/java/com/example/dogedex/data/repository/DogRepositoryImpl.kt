@@ -70,8 +70,8 @@ class DogRepositoryImpl @Inject constructor(private var coreHomeApi: CoreHomeAPI
 
     override suspend fun getDogByMlid(mlDogId: String): DogModel {
         return withContext(Dispatchers.IO){
-            val TopFive = coreHomeApi.getDogByMlid(mlDogId)
-            TopFive.data.dog
+            val topFive = coreHomeApi.getDogByMlid(mlDogId)
+            topFive.data.dog
         }
     }
 

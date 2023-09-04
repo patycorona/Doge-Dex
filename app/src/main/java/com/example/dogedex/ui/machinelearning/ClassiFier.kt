@@ -1,7 +1,16 @@
 package com.example.dogedex.ui.machinelearning
 
 import android.graphics.Bitmap
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.CONFIDENCE_100
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.DECUANTIZE_SCALE
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.DECUANTIZE_SCALE_1
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.DECUANTIZE_SCALE_ZERO
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.FIVE
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.MAX_RECOGNITION_DOG_RESULTS
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ONE
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.TWO
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ZERO
+import com.example.dogedex.domain.model.DogRecognition
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.common.TensorProcessor
 import org.tensorflow.lite.support.common.ops.DequantizeOp
@@ -13,7 +22,7 @@ import org.tensorflow.lite.support.label.TensorLabel
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.util.*
 
-class ClassFier(tfLiteModel: MappedByteBuffer, private val labels: List<String>) {
+class ClassiFier(tfLiteModel: MappedByteBuffer, private val labels: List<String>) {
     /**
      * Image size along the x axis.
      */
@@ -47,79 +56,65 @@ class ClassFier(tfLiteModel: MappedByteBuffer, private val labels: List<String>)
 
     init {
         val tfLiteOptions = Interpreter.Options()
-        tfLiteOptions.setNumThreads(5)
+        tfLiteOptions.setNumThreads(FIVE)
         tfLite = Interpreter(tfLiteModel, tfLiteOptions)
 
-        // Reads type and shape of input and output tensors, respectively.
-        val imageTensorIndex = 0
+        val imageTensorIndex = ZERO
         val imageShape = tfLite.getInputTensor(imageTensorIndex).shape()
-        imageSizeY = imageShape[1]
-        imageSizeX = imageShape[2]
+        imageSizeY = imageShape[ONE]
+        imageSizeX = imageShape[TWO]
         val imageDataType = tfLite.getInputTensor(imageTensorIndex).dataType()
-        val probabilityTensorIndex = 0
+        val probabilityTensorIndex = ZERO
         val probabilityShape =
-            tfLite.getOutputTensor(probabilityTensorIndex).shape() // {1, NUM_CLASSES}
+            tfLite.getOutputTensor(probabilityTensorIndex).shape()
         val probabilityDataType = tfLite.getOutputTensor(probabilityTensorIndex).dataType()
 
-        // Creates the input tensor.
         inputImageBuffer = TensorImage(imageDataType)
 
-        // Creates the output tensor and its processor.
         outputProbabilityBuffer = TensorBuffer.createFixedSize(
             probabilityShape,
             probabilityDataType
         )
 
-        // Creates the post processor for the output probability.
-        tensorProcessor = TensorProcessor.Builder().add(DequantizeOp(0f, 1 / 255.0f)).build()
+        tensorProcessor = TensorProcessor.Builder().add(DequantizeOp(DECUANTIZE_SCALE_ZERO,
+            DECUANTIZE_SCALE_1 / DECUANTIZE_SCALE)).build()
     }
 
-    /**
-     * Runs inference and returns the classification results.
-     */
     fun recognizeImage(bitmap: Bitmap): List<DogRecognition> {
         inputImageBuffer = loadImage(bitmap)
         val rewoundOutputBuffer = outputProbabilityBuffer.buffer.rewind()
         tfLite.run(inputImageBuffer.buffer, rewoundOutputBuffer)
-        // Gets the map of label and probability.
+
         val labeledProbability =
             TensorLabel(labels, tensorProcessor.process(outputProbabilityBuffer)).mapWithFloatValue
 
-        // Gets top-k results.
         return getTopKProbability(labeledProbability)
     }
 
-    /**
-     * Loads input image, and applies pre processing.
-     */
     private fun loadImage(bitmap: Bitmap): TensorImage {
-        // Loads bitmap into a TensorImage.
+
         inputImageBuffer.load(bitmap)
 
-        // Creates processor for the TensorImage.
         val imageProcessor = ImageProcessor.Builder()
             .add(ResizeOp(imageSizeX, imageSizeY, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
             .build()
         return imageProcessor.process(inputImageBuffer)
     }
 
-    /**
-     * Gets the top-k results.
-     */
     private fun getTopKProbability(labelProb: Map<String, Float>): List<DogRecognition> {
-        // Find the best classifications.
         val priorityQueue =
-            PriorityQueue(MAX_RECOGNITION_DOG_RESULTS) { lhs: DogRecognition, rhs: DogRecognition ->
+            PriorityQueue(MAX_RECOGNITION_DOG_RESULTS) {
+                    lhs: DogRecognition, rhs: DogRecognition ->
                 (rhs.confidence).compareTo(lhs.confidence)
             }
 
         for ((key, value) in labelProb) {
-            priorityQueue.add(DogRecognition(key, value * 100.0f))
+            priorityQueue.add(DogRecognition(key, value * CONFIDENCE_100))
         }
 
         val recognitions = mutableListOf<DogRecognition>()
         val recognitionsSize = minOf(priorityQueue.size, MAX_RECOGNITION_DOG_RESULTS)
-        for (i in 0 until recognitionsSize) {
+        for (i in ZERO until recognitionsSize) {
             recognitions.add(priorityQueue.poll()!!)
         }
 

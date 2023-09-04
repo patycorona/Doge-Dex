@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.Rect
 import android.graphics.YuvImage
-import android.media.Image
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -32,22 +30,28 @@ import com.example.dogedex.data.model.response.ApiServiceInterceptor
 import com.example.dogedex.databinding.ActivityMainBinding
 import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.domain.model.ConstantGeneral
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ALPHA_1
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ALPHA_2
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.CONFIDENCE
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.DOG_KEY
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_PHOTO_URI
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_TAKE_PHOTO
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.EXTENSION
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.LABEL_PATH
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.MODEL_PATH
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.MSG_RC_
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ONE
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.QUALITY
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.TAG
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.TWO
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.ZERO
 import com.example.dogedex.domain.model.DogModel
-import com.example.dogedex.ui.dog.viewmodel.DogListViewModel
 import com.example.dogedex.ui.dog.views.DogDetailItemActivity
-import com.example.dogedex.ui.machinelearning.ClassFier
-import com.example.dogedex.ui.machinelearning.DogRecognition
+import com.example.dogedex.ui.machinelearning.ClassiFier
+import com.example.dogedex.domain.model.DogRecognition
+import com.example.dogedex.ui.dog.views.DogListActivity
 import com.example.dogedex.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.tensorflow.lite.support.common.FileUtil
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -57,7 +61,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var imageCapture:ImageCapture
     private lateinit var cameraExecutor:ExecutorService
-    private lateinit var classfier: ClassFier
+    private lateinit var classfier: ClassiFier
+    private var user : AuthModel = AuthModel()
     private var isCamaraReady = false
 
     private val mainViewModel:MainViewModel by viewModels()
@@ -67,70 +72,55 @@ class MainActivity : AppCompatActivity() {
          binding = ActivityMainBinding.inflate(layoutInflater)
          setContentView(binding.root)
 
-        val user = intent?.extras?.getParcelable<AuthModel>(ConstantGeneral.USER_KEY)
+         user = intent?.extras?.getParcelable<AuthModel>(ConstantGeneral.USER_KEY)!!
 
         if(user == null) {
             Toast.makeText(this, R.string.error_showing_dog_not_found, Toast.LENGTH_SHORT).show()
             finish()
             return
         }else{
-            ApiServiceInterceptor.setSessionToken(user.authentication_token)
+            ApiServiceInterceptor.setSessionToken(user!!.authentication_token)
         }
 
+        initListener()
         initObserver()
         requestCameraPermission()
+    }
+
+    private fun initListener(){
+        binding.fabListDog.setOnClickListener {
+            openDogListActivity(user)
+        }
+    }
+
+    private fun openDogListActivity(authModel: AuthModel?){
+        val intent = Intent(this, DogListActivity::class.java)
+        intent.putExtra(ConstantGeneral.USER_KEY,authModel)
+        startActivity(intent)
     }
 
     private val DogObserver = Observer<DogModel>{ dog ->
 
         if(dog != null){
+            openDogDetailActivity(dog)
+
+        }
+        else{
             binding.loadingWheel.visibility = View.GONE
             Toast.makeText(this,ERROR_PHOTO_URI,Toast.LENGTH_SHORT).show()
             return@Observer
         }
-        else{
-            openDogDetailActivity(dog)
-        }
-
     }
-
 
     private fun initObserver() = mainViewModel.dog.observe(this, DogObserver)
 
     override fun onStart() {
         super.onStart()
-         classfier = ClassFier(
+         classfier = ClassiFier(
             FileUtil.loadMappedFile(this@MainActivity, MODEL_PATH),
             FileUtil.loadLabels(this@MainActivity,LABEL_PATH)
         )
     }
-
-    /*private fun takePhoto(){
-        val outputFileOptions = ImageCapture.OutputFileOptions.Builder(getOutputPhotoFile()).build()
-        imageCapture.takePicture(outputFileOptions, cameraExecutor,
-         object :ImageCapture.OnImageSavedCallback{
-
-                override fun onError(error : ImageCaptureException){
-                    Toast.makeText(this@MainActivity, ERROR_TAKE_PHOTO + "${error.message}", Toast.LENGTH_SHORT).show()
-                }
-                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-
-                }
-        })
-    }*/
-
-    /*private fun getOutputPhotoFile(): File{
-        val mediaDir = externalMediaDirs.firstOrNull()?.let{
-            File(it,resources.getString(R.string.app_name) + EXTENSION).apply { mkdirs() }
-        }
-
-        return if(mediaDir != null && mediaDir.exists()){
-            mediaDir
-        }
-        else{
-            filesDir
-        }
-    }*/
 
     private fun starCamera(){
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -150,9 +140,6 @@ class MainActivity : AppCompatActivity() {
 
                 if (imageProxy != null) {
 
-                    //asi se usaria en la segunda forma de convertir a bitmap
-//                    val bitmap = imageProxy.image.toBitmap()
-
                     val bitmap = convertImageProxyToBitmap(imageProxy)
                     if (bitmap != null) {
                         val dogRecognition = classfier.recognizeImage(bitmap).first()
@@ -160,7 +147,6 @@ class MainActivity : AppCompatActivity() {
                     }
                     imageProxy.close()
                 }
-
             }
 
             cameraProvider.bindToLifecycle(
@@ -171,51 +157,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun enableTakePhotoButtom(dogRecognition: DogRecognition) {
-       if(dogRecognition.confidence > 70.0){
-           binding.fabTakePhoto.alpha = 1f
+        binding.apply {
+            if(dogRecognition.confidence > CONFIDENCE){
+                fabTakePhoto.alpha = ALPHA_1
+                fabTakePhoto.setOnClickListener {
+                    mainViewModel.getDogByMlid(dogRecognition.ml_id)
+                }
+            }else{
+                fabTakePhoto.alpha = ALPHA_2
+                fabTakePhoto.setOnClickListener(null)
+            }
+        }
 
-           binding.fabTakePhoto.setOnClickListener {
-               mainViewModel.getDogByMlid(dogRecognition.id)
-           }
-
-       }else{
-           binding.fabTakePhoto.alpha = 0.2f
-           binding.fabTakePhoto.setOnClickListener(null)
-       }
     }
-
-
-
-   // Esta es otra forma de convertir una imagen a bitmap
-
-    fun Image.toBitmap(): Bitmap {
-        val yBuffer = planes[0].buffer // Y
-        val vuBuffer = planes[2].buffer // VU
-
-        val ySize = yBuffer.remaining()
-        val vuSize = vuBuffer.remaining()
-
-        val nv21 = ByteArray(ySize + vuSize)
-
-        yBuffer.get(nv21, 0, ySize)
-        vuBuffer.get(nv21, ySize, vuSize)
-
-        val yuvImage = YuvImage(nv21, ImageFormat.NV21, this.width, this.height, null)
-        val out = ByteArrayOutputStream()
-        yuvImage.compressToJpeg(Rect(0, 0, yuvImage.width, yuvImage.height), 50, out)
-        val imageBytes = out.toByteArray()
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-    }
-
-
-
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun convertImageProxyToBitmap(imageProxy: ImageProxy): Bitmap?{
         val image = imageProxy.image ?: return null
-        val yBuffer = image.planes[0].buffer //Y
-        val uBuffer = image.planes[1].buffer //u
-        val vBuffer = image.planes[2].buffer //V
+        val yBuffer = image.planes[ZERO].buffer
+        val uBuffer = image.planes[ONE].buffer
+        val vBuffer = image.planes[TWO].buffer
 
         val ySize = yBuffer.remaining()
         val uSize = uBuffer.remaining()
@@ -224,21 +185,18 @@ class MainActivity : AppCompatActivity() {
         val nv21 = ByteArray(ySize + uSize + vSize)
 
         //U and V are swapped\
-        yBuffer.get(nv21, 0, ySize)
+        yBuffer.get(nv21, ZERO, ySize)
         vBuffer.get(nv21, ySize, vSize)
         uBuffer.get(nv21, ySize + vSize, uSize)
 
         val yuvImage = YuvImage(nv21, ImageFormat.NV21, image.width, image.height, null)
         val out = ByteArrayOutputStream()
         yuvImage.compressToJpeg(
-            Rect(0, 0, yuvImage.width, yuvImage.height), 100, out
+            Rect(ZERO, ZERO, yuvImage.width, yuvImage.height), QUALITY, out
         )
         val imageBytes = out.toByteArray()
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-
+        return BitmapFactory.decodeByteArray(imageBytes, ZERO, imageBytes.size)
     }
-
-
 
     private fun openDogDetailActivity(dog:DogModel){
         val intent = Intent(this,DogDetailItemActivity::class.java)
@@ -258,7 +216,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun requestCameraPermission(){
-        Log.e("MPX", "requestCameraPermission: " + Build.VERSION.SDK_INT , )
+        Log.e(TAG, MSG_RC_ + Build.VERSION.SDK_INT , )
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             when {
                 ContextCompat.checkSelfPermission(
@@ -292,7 +250,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpCamera(){
-
         binding.cameraPreview.post {
             imageCapture = ImageCapture.Builder()
                 .setTargetRotation(binding.cameraPreview.display.rotation)

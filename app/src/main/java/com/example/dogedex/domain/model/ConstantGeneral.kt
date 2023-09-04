@@ -6,7 +6,15 @@ class ConstantGeneral {
         const val DOG_KEY = "dog"
         const val EMAIL = "Admin@admin.com"
         const val ID = 2
-        const val UNO = 1
+        const val ONE = 1
+        const val TWO = 2
+        const val ZERO = 0
+        const val FIVE = 5
+        const val CONFIDENCE = 70.0
+        const val CONFIDENCE_100 = 100.0f
+        const val QUALITY = 100
+        const val ALPHA_2 = 0.2f
+        const val ALPHA_1 = 1f
         const val EMPTY =""
         const val SUCCESSFUL_USER_REGISTER ="Usuario registrado correctamente"
         const val ADDED_DOG = "Dog Added to list"
@@ -19,14 +27,17 @@ class ConstantGeneral {
         const val REQUIRES_PERMITS = "You need acept camera permission to use camera."
         const val ACCEPT_PERMISSION ="Accept the permissions"
         const val ACCEPT_PERMISSION_MSG= "accept the permissions to be able to use the camera."
-        const val EXTENSION = ".jpg"
-        const val ERROR_TAKE_PHOTO = ""
         const val PHOTO_URI_KEY = "photo_uri"
         const val ERROR_PHOTO_URI = "Error showing image no photo uri"
 
         const val MAX_RECOGNITION_DOG_RESULTS = 5
         const val MODEL_PATH = "model.tflite"
         const val LABEL_PATH = "labels.txt"
+        const val TAG = "MPX"
+        const val MSG_RC_ = "requestCameraPermission: "
+        const val DECUANTIZE_SCALE_1 = 1
+        const val DECUANTIZE_SCALE = 255.0f
+        const val DECUANTIZE_SCALE_ZERO = 0f
 
     }
 }

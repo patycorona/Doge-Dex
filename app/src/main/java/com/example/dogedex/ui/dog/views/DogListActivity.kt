@@ -52,7 +52,6 @@ class DogListActivity : AppCompatActivity() {
             Toast.makeText(this,ADDED_DOG + " ${idDog.name_es}", Toast.LENGTH_SHORT).show()
             addDogToUser(idDog.id)
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

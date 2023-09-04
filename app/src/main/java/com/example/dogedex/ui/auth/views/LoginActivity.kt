@@ -38,13 +38,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun changeScreen(typeScreen: Screen,  auth: AuthModel? = AuthModel()) {
-
         binding.apply {
             when (typeScreen) {
                 Screen.LoginActivity -> { openLoginFragment(auth) }
                 Screen.LoginFragment -> { openLoginFragment(auth) }
                 Screen.SingUpFragment -> { openSingUpFragment() }
-                Screen.DogListActivity -> { openDogListActivity(auth) }
+               // Screen.DogListActivity -> { openDogListActivity(auth) }
                 Screen.MainActivity -> { openMainActivity(auth) }
                 else -> {
                     Toast.makeText(this@LoginActivity,
@@ -59,12 +58,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun openSingUpFragment() = changeFragment(SingUpFragment.newInstance())
 
-    private fun openDogListActivity(authModel: AuthModel?){
 
-        val intent = Intent(this, DogListActivity::class.java)
-        intent.putExtra(ConstantGeneral.USER_KEY,authModel)
-        startActivity(intent)
-    }
 
     private fun openMainActivity(authModel: AuthModel?){
         val intent = Intent(this, MainActivity::class.java)

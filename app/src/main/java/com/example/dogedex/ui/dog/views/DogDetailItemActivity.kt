@@ -23,7 +23,6 @@ class DogDetailItemActivity : AppCompatActivity() {
 
         val dogItem = intent?.extras?.getParcelable<DogModel>(DOG_KEY)
 
-
         if(dogItem == null) {
             Toast.makeText(this, R.string.error_showing_dog_not_found, Toast.LENGTH_SHORT).show()
             finish()

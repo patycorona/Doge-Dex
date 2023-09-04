@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
 
     fun getDogByMlid(mlDogId: String){
         viewModelScope.launch {
-            dogUseCase.getDogByMlid(mlDogId)
+            dog.value = dogUseCase.getDogByMlid(mlDogId)
         }
     }
 }
