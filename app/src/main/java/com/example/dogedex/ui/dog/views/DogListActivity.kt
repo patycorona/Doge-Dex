@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.dogedex.R
 import com.example.dogedex.data.model.response.ApiServiceInterceptor
+import com.example.dogedex.data.model.response.DefaultResponse
 import com.example.dogedex.databinding.ActivityDogListBinding
 import com.example.dogedex.domain.model.AuthModel
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.ADDED_DOG
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.DOG_KEY
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.GRID_SPAN_COUNT
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.USER_KEY
@@ -40,6 +40,10 @@ class DogListActivity : AppCompatActivity() {
         binding.loadingWheel.visibility = View.GONE
     }
 
+    private val addDogObserver:((defaultResponse:DefaultResponse) -> Unit) = { addDog ->
+        if(addDog.isSuccess) Toast.makeText(this, getString(R.string.text_add_dog),Toast.LENGTH_SHORT).show()
+    }
+
     private val onItemClickListener: ((dogModel: DogModel) -> Unit) = { dogModel ->
 
         val intent = Intent(this, DogDetailItemActivity::class.java)
@@ -49,7 +53,7 @@ class DogListActivity : AppCompatActivity() {
 
     private val onLongListItemClickListener : ((dogModel: DogModel) -> Unit) = { idDog ->
         if (idDog != null){
-            Toast.makeText(this,ADDED_DOG + " ${idDog.name_es}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,getString(R.string.text_add_dog) + " ${idDog.name_es}", Toast.LENGTH_SHORT).show()
             addDogToUser(idDog.id)
         }
     }
@@ -76,7 +80,10 @@ class DogListActivity : AppCompatActivity() {
         initObserver()
     }
 
-    private fun initObserver() = dogListViewModel.dogList.observe(this, listDogsObserver)
+    private fun initObserver() {
+        dogListViewModel.dogList.observe(this, listDogsObserver)
+        dogListViewModel.add_Dog.observe(this,addDogObserver)
+    }
 
     private fun addDogToUser(id:Long){
         dogListViewModel.addDogToUser(id)

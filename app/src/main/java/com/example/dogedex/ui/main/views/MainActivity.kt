@@ -34,7 +34,6 @@ import com.example.dogedex.domain.model.ConstantGeneral.Companion.ALPHA_1
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.ALPHA_2
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.CONFIDENCE
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.DOG_KEY
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_PHOTO_URI
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.LABEL_PATH
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.MODEL_PATH
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.MSG_RC_
@@ -107,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             binding.loadingWheel.visibility = View.GONE
-            Toast.makeText(this,ERROR_PHOTO_URI,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,getString(R.string.error_photo_uri),Toast.LENGTH_SHORT).show()
             return@Observer
         }
     }
@@ -211,7 +210,7 @@ class MainActivity : AppCompatActivity() {
             if (isGranted) {
                  setUpCamera()
             } else {
-                Toast.makeText(this, ConstantGeneral.REQUIRES_PERMITS, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.text_requires_permits), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -227,8 +226,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA) -> {
                     AlertDialog.Builder(this)
-                        .setTitle(ConstantGeneral.ACCEPT_PERMISSION)
-                        .setMessage(ConstantGeneral.ACCEPT_PERMISSION_MSG)
+                        .setTitle(getString(R.string.accept_permissions))
+                        .setMessage(getString(R.string.accept_permissions_msg))
                         .setPositiveButton(android.R.string.ok){
                                 _,_ ->
                             requestPermissionLauncher.launch(
