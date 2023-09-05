@@ -14,8 +14,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-var CONSTANT = 100
-
 @InstallIn(SingletonComponent::class)
 @Module
 object RetrofitModule {

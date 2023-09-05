@@ -60,7 +60,7 @@ dependencies {
     implementation "androidx.palette:palette-ktx:$supportVersion"
     implementation "androidx.dynamicanimation:dynamicanimation:$supportVersion"
     implementation "androidx.core:core-ktx:$coreKtx"
-    //implementation "io.coil-kt:coil:2.4.0"
+    implementation "io.coil-kt:coil:$coil"
 
     //Architecture components
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeExtensions"
@@ -100,7 +100,7 @@ dependencies {
     //Network y Retrofit y moshi
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:$moshiVersion"
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rxJava2Adapter"
     implementation "com.squareup.okhttp3:logging-interceptor:$loginInterceptor"
 
@@ -118,6 +118,15 @@ dependencies {
 
     //Gson
     implementation "com.google.code.gson:gson:$GsonVersion"
+
+    //camaraX
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+    implementation "androidx.camera:camera-view:$camerax_version"
+
+    //TensorFlow lite
+    implementation "org.tensorflow:tensorflow-lite:0.0.0-nightly-SNAPSHOT"
+    implementation "org.tensorflow:tensorflow-lite-support:0.1.0"
 
     // For instrumentation tests
     testImplementation "junit:junit:$jUnit"

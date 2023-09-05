@@ -15,7 +15,7 @@ class AuthRepositoryImpl @Inject constructor(var coreHomeApi: CoreHomeAPI) : Aut
 
     override suspend fun userRegister(userRequest: UserRequest): AuthModel {
         return withContext(Dispatchers.IO) {
-            AuthModel(ID.toLong(), EMAIL, TOKEN) //coreHomeApi.login(loginRequest
+            AuthModel(ID.toLong(), EMAIL, TOKEN) //coreHomeApi.userRegister(loginRequest
         }
     }
 

@@ -138,7 +138,7 @@
                             android:layout_width="@dimen/spacy_0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_weight="1"
+                            android:layout_weight="@integer/min"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 

@@ -4,5 +4,6 @@ enum class Screen (val type: String) {
     LoginActivity("LoginActivity"),
     LoginFragment("LoginFragment"),
     SingUpFragment("SingUpFragment"),
-    DogListActivity("DogListActivity")
+    DogListActivity("DogListActivity"),
+    MainActivity("MainActivity")
 }

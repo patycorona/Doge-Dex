@@ -1,5 +1,6 @@
 package com.example.dogedex.ui.auth.views
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -10,9 +11,8 @@ import com.example.dogedex.R
 import com.example.dogedex.databinding.ActivityLoginBinding
 import com.example.dogedex.domain.model.AuthModel
 import com.example.dogedex.domain.model.ConstantGeneral
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_NOT_FOUND
 import com.example.dogedex.ui.component.Screen
-import com.example.dogedex.ui.dog.views.DogListActivity
+import com.example.dogedex.ui.main.views.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
        changeScreen(Screen.LoginFragment, AuthModel())
+
     }
 
     private fun changeFragment(fragment: Fragment) {
@@ -35,28 +36,31 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun changeScreen(typeScreen: Screen,  auth: AuthModel? = AuthModel()) {
-
         binding.apply {
             when (typeScreen) {
                 Screen.LoginActivity -> { openLoginFragment(auth) }
                 Screen.LoginFragment -> { openLoginFragment(auth) }
                 Screen.SingUpFragment -> { openSingUpFragment() }
-                Screen.DogListActivity -> { openDogListActivity(auth) }
+               // Screen.DogListActivity -> { openDogListActivity(auth) }
+                Screen.MainActivity -> { openMainActivity(auth) }
                 else -> {
                     Toast.makeText(this@LoginActivity,
-                        ERROR_NOT_FOUND,Toast.LENGTH_SHORT).show()
+                        getString(R.string.text_error_not_found),Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
+
     private fun openLoginFragment( auhModel: AuthModel?) = changeFragment(LoginFragment.newInstance(auhModel))
 
     private fun openSingUpFragment() = changeFragment(SingUpFragment.newInstance())
 
-    private fun openDogListActivity(auhModel: AuthModel?){
-        val intent = Intent(this, DogListActivity::class.java)
-        intent.putExtra(ConstantGeneral.USER_KEY,auhModel)
+
+
+    private fun openMainActivity(authModel: AuthModel?){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(ConstantGeneral.USER_KEY,authModel)
         startActivity(intent)
     }
 }

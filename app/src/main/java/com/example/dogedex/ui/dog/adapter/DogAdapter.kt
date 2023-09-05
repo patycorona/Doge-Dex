@@ -31,11 +31,17 @@ class DogAdapter(
         @RequiresApi(Build.VERSION_CODES.M)
         fun bind(dataSource: DogModel){
 
-            Glide.with(context)
-                .load(dataSource.image_url)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(binding.dogImage)
-            binding.tvDogName.text = dataSource.name_es
+            if(dataSource.inCollection){
+                binding.tvDogName.text = dataSource.index.toString()
+
+            }else{
+
+                Glide.with(context)
+                    .load(dataSource.image_url)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(binding.dogImage)
+                binding.tvDogName.text = dataSource.name_es
+            }
             binding.dogListItemLayout.setBackgroundResource(R.drawable.bg_item_dog_list)
 
             binding.apply {

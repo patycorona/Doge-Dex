@@ -4,9 +4,7 @@ import com.example.dogedex.data.model.request.DogToUserRequest
 import com.example.dogedex.data.model.response.DefaultResponse
 import com.example.dogedex.data.network.CoreHomeAPI
 import com.example.dogedex.data.repository.mocks.MockRepository
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.ADDED_DOG
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.EMPTY
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.ERROR_NOT_FOUND
 import com.example.dogedex.domain.model.DogModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -23,9 +21,9 @@ class DogRepositoryImpl @Inject constructor(private var coreHomeApi: CoreHomeAPI
 
     override suspend fun addDogToUser(dogToUserRequest: DogToUserRequest): DefaultResponse {
         return withContext(Dispatchers.IO) {
-            val id = dogToUserRequest.dogId//coreHomeApi.addDogToUser(dogToUserRequest)
-            if (id != null) DefaultResponse(ADDED_DOG, true)
-            else DefaultResponse(ERROR_NOT_FOUND, false)
+           val id = dogToUserRequest.dogId //coreHomeApi.addDogToUser(dogToUserRequest)
+            if (id != null) DefaultResponse("", true)
+            else DefaultResponse("", false)
         }
     }
 
@@ -63,10 +61,16 @@ class DogRepositoryImpl @Inject constructor(private var coreHomeApi: CoreHomeAPI
                 it
             }else{
                 DogModel(it.id,it.index, EMPTY,EMPTY,EMPTY,EMPTY,
-                    EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, inCollection = false)
+                    EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, inCollection = true)
             }
         }.sorted()
+    }
 
+    override suspend fun getDogByMlid(mlDogId: String): DogModel {
+        return withContext(Dispatchers.IO){
+            val topFive = coreHomeApi.getDogByMlid(mlDogId)
+            topFive.data.dog
+        }
     }
 
 }

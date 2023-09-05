@@ -10,7 +10,6 @@
     <string name="dog_index_format">#%d</string>
     <string name="dog_life_expectancy_format">%s years</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_email">E-mail:</string>
     <string name="hint_password">Password:</string>
     <string name="hint_confirm_password">Confirm Password:</string>
@@ -24,5 +23,19 @@
     <string name="lbl_email_error">E-mail is not valid</string>
     <string name="lbl_password_error">Password is not valid</string>
     <string name="lbl_passwords_error">Passwords not match</string>
+
+    <string name="text_user_register_successful">Usuario registrado correctamente</string>
+    <string name="text_needs_auth_header_kay">needs_authentication</string>
+    <string name="text_error_not_found">error_not_found</string>
+    <string name="text_add_dog">Dog Added to list</string>
+    <string name="text_requires_permits">You need acept camera permission to use camera.</string>
+    <string name="accept_permissions">Accept the permissions</string>
+    <string name="accept_permissions_msg">accept the permissions to be able to use the camera.</string>
+    <string name="error_photo_uri">Error showing image no photo uri</string>
+
+
+
+
+
 
 </resources>
