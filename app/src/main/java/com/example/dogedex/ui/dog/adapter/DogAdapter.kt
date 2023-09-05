@@ -16,15 +16,13 @@ import com.example.dogedex.domain.model.DogModel
 class DogAdapter(
     private val dataSource: List<DogModel>,
     val context: Context,
-    var onListItemClickListener: ((dogModel: DogModel) -> Unit),
-    var onLongListItemClickListener : ((dogModel: DogModel) -> Unit)
+    var onListItemClickListener: ((dogModel: DogModel) -> Unit)
 )  : RecyclerView.Adapter<DogAdapter.ViewHolder>(){
 
     inner class ViewHolder(
         private var binding: DogListItemBinding,
         private var ctx: Context,
-        var onListItemClickListener: ((dogModel: DogModel) -> Unit),
-        var onLongListItemClickListener : ((dogModel: DogModel) -> Unit)
+        var onListItemClickListener: ((dogModel: DogModel) -> Unit)
     ) : RecyclerView.ViewHolder(binding!!.root) {
         var root: ConstraintLayout = binding.dogListItemLayout
 
@@ -50,11 +48,6 @@ class DogAdapter(
                     binding.dogListItemLayout.setBackgroundResource(R.drawable.bg_item_dog_list)
                     onListItemClickListener.invoke(dataSource)
                 }
-                dogListItemLayout.setOnLongClickListener {
-                    onLongListItemClickListener.invoke(dataSource)
-                    dogListItemLayout.setBackgroundColor(ctx.getColor(R.color.divider))
-                    true
-                }
             }
         }
     }
@@ -62,7 +55,7 @@ class DogAdapter(
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding = DogListItemBinding.inflate(
             LayoutInflater.from(viewGroup.context),viewGroup,false)
-        return ViewHolder(binding, viewGroup.context, onListItemClickListener,onLongListItemClickListener)
+        return ViewHolder(binding, viewGroup.context, onListItemClickListener)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

@@ -18,6 +18,7 @@ import com.example.dogedex.domain.model.ConstantGeneral.Companion.GRID_SPAN_COUN
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.USER_KEY
 import com.example.dogedex.domain.model.DogModel
 import com.example.dogedex.ui.dog.adapter.DogAdapter
+import com.example.dogedex.ui.dog.viewmodel.DogDetailViewModel
 import com.example.dogedex.ui.dog.viewmodel.DogListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,36 +28,34 @@ class DogListActivity : AppCompatActivity() {
     lateinit var binding: ActivityDogListBinding
     private val dogListViewModel: DogListViewModel by viewModels()
 
+
     private val listDogsObserver = Observer<List<DogModel>> { dogModel ->
         dogModel?.let {
             val adapter = DogAdapter(
                 it,
                 this,
-                onItemClickListener,
-                onLongListItemClickListener)
+                onItemClickListener
+            )
             binding?.dogRecyclerview?.adapter = adapter
             adapter.notifyDataSetChanged()
         }
         binding.loadingWheel.visibility = View.GONE
     }
 
-    private val addDogObserver:((defaultResponse:DefaultResponse) -> Unit) = { addDog ->
-        if(addDog.isSuccess) Toast.makeText(this, getString(R.string.text_add_dog),Toast.LENGTH_SHORT).show()
-    }
+
 
     private val onItemClickListener: ((dogModel: DogModel) -> Unit) = { dogModel ->
-
         val intent = Intent(this, DogDetailItemActivity::class.java)
         intent.putExtra(DOG_KEY,dogModel)
         startActivity(intent)
     }
 
-    private val onLongListItemClickListener : ((dogModel: DogModel) -> Unit) = { idDog ->
+/*    private val onLongListItemClickListener : ((dogModel: DogModel) -> Unit) = { idDog ->
         if (idDog != null){
             Toast.makeText(this,getString(R.string.text_add_dog) + " ${idDog.name_es}", Toast.LENGTH_SHORT).show()
             addDogToUser(idDog.id)
         }
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,12 +81,12 @@ class DogListActivity : AppCompatActivity() {
 
     private fun initObserver() {
         dogListViewModel.dogList.observe(this, listDogsObserver)
-        dogListViewModel.add_Dog.observe(this,addDogObserver)
+        //dogDetailViewModel.add_Dog.observe(this,addDogObserver)
     }
 
-    private fun addDogToUser(id:Long){
-        dogListViewModel.addDogToUser(id)
-    }
+    /*private fun addDogToUser(id:Long){
+        dogDetailViewModel.addDogToUser(id)
+    }*/
 
     private fun initRecycler() {
         val recycler = binding.dogRecyclerview

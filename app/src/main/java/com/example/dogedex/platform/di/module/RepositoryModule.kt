@@ -1,8 +1,9 @@
 package com.example.dogedex.platform.di.module
 
 import com.example.dogedex.data.network.CoreHomeAPI
-import com.example.dogedex.data.repository.DogRepositoryImpl
 import com.example.dogedex.data.repository.AuthRepositoryImpl
+import com.example.dogedex.data.repository.ClassiFierRepositoryImpl
+import com.example.dogedex.data.repository.DogRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,4 +20,7 @@ class RepositoryModule {
     fun userRepositoryProvider(coreHomeAPI: CoreHomeAPI): AuthRepositoryImpl =
         AuthRepositoryImpl(coreHomeAPI)
 
+    @Provides
+    fun classiFierRepositoryProvider(): ClassiFierRepositoryImpl =
+        ClassiFierRepositoryImpl()
 }

@@ -41,7 +41,6 @@ class LoginActivity : AppCompatActivity() {
                 Screen.LoginActivity -> { openLoginFragment(auth) }
                 Screen.LoginFragment -> { openLoginFragment(auth) }
                 Screen.SingUpFragment -> { openSingUpFragment() }
-               // Screen.DogListActivity -> { openDogListActivity(auth) }
                 Screen.MainActivity -> { openMainActivity(auth) }
                 else -> {
                     Toast.makeText(this@LoginActivity,
@@ -51,12 +50,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
     private fun openLoginFragment( auhModel: AuthModel?) = changeFragment(LoginFragment.newInstance(auhModel))
 
     private fun openSingUpFragment() = changeFragment(SingUpFragment.newInstance())
-
-
 
     private fun openMainActivity(authModel: AuthModel?){
         val intent = Intent(this, MainActivity::class.java)
