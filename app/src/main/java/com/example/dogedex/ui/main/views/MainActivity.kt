@@ -1,13 +1,7 @@
 package com.example.dogedex.ui.main.views
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.ImageFormat
-import android.graphics.Rect
-import android.graphics.YuvImage
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
@@ -34,23 +27,19 @@ import com.example.dogedex.domain.model.ConstantGeneral.Companion.ALPHA_1
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.ALPHA_2
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.CONFIDENCE
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.DOG_KEY
+import com.example.dogedex.domain.model.ConstantGeneral.Companion.IS_RECOGNITION_KEY
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.LABEL_PATH
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.MODEL_PATH
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.MSG_RC_
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.ONE
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.QUALITY
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.TAG
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.TWO
-import com.example.dogedex.domain.model.ConstantGeneral.Companion.ZERO
 import com.example.dogedex.domain.model.DogModel
-import com.example.dogedex.ui.dog.views.DogDetailItemActivity
-import com.example.dogedex.ui.machinelearning.ClassiFier
 import com.example.dogedex.domain.model.DogRecognition
+import com.example.dogedex.ui.dog.views.DogDetailItemActivity
 import com.example.dogedex.ui.dog.views.DogListActivity
+import com.example.dogedex.ui.machinelearning.ClassiFier
 import com.example.dogedex.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.tensorflow.lite.support.common.FileUtil
-import java.io.ByteArrayOutputStream
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -99,26 +88,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val DogObserver = Observer<DogModel>{ dog ->
-
         if(dog != null){
             openDogDetailActivity(dog)
-
-        }
-        else{
+        } else{
             binding.loadingWheel.visibility = View.GONE
             Toast.makeText(this,getString(R.string.error_photo_uri),Toast.LENGTH_SHORT).show()
             return@Observer
         }
     }
 
-    private fun initObserver() = mainViewModel.dog.observe(this, DogObserver)
+    private val dogRecognitionObserver = Observer<DogRecognition>{ Dog_R ->
+        enableTakePhotoButtom(Dog_R)
+    }
+
+    private fun initObserver() {
+        mainViewModel.dog.observe(this, DogObserver)
+        mainViewModel.dog_Recognition.observe(this, dogRecognitionObserver)
+    }
 
     override fun onStart() {
         super.onStart()
-         classfier = ClassiFier(
-            FileUtil.loadMappedFile(this@MainActivity, MODEL_PATH),
-            FileUtil.loadLabels(this@MainActivity,LABEL_PATH)
-        )
+        classfier = ClassiFier(FileUtil.loadMappedFile(this@MainActivity, MODEL_PATH),
+            FileUtil.loadLabels(this@MainActivity,LABEL_PATH))
     }
 
     private fun starCamera(){
@@ -136,22 +127,12 @@ class MainActivity : AppCompatActivity() {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
             imageAnalisis.setAnalyzer(cameraExecutor) { imageProxy ->
-
-                if (imageProxy != null) {
-
-                    val bitmap = convertImageProxyToBitmap(imageProxy)
-                    if (bitmap != null) {
-                        val dogRecognition = classfier.recognizeImage(bitmap).first()
-                        enableTakePhotoButtom(dogRecognition)
-                    }
-                    imageProxy.close()
-                }
+                mainViewModel.recognizeImage(imageProxy, classfier)
             }
-
             cameraProvider.bindToLifecycle(
                 this, cameraSelector,
-                preview, imageCapture, imageAnalisis
-            )
+                preview, imageCapture, imageAnalisis)
+
         },ContextCompat.getMainExecutor(this))
     }
 
@@ -167,39 +148,12 @@ class MainActivity : AppCompatActivity() {
                 fabTakePhoto.setOnClickListener(null)
             }
         }
-
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    private fun convertImageProxyToBitmap(imageProxy: ImageProxy): Bitmap?{
-        val image = imageProxy.image ?: return null
-        val yBuffer = image.planes[ZERO].buffer
-        val uBuffer = image.planes[ONE].buffer
-        val vBuffer = image.planes[TWO].buffer
-
-        val ySize = yBuffer.remaining()
-        val uSize = uBuffer.remaining()
-        val vSize = vBuffer.remaining()
-
-        val nv21 = ByteArray(ySize + uSize + vSize)
-
-        //U and V are swapped\
-        yBuffer.get(nv21, ZERO, ySize)
-        vBuffer.get(nv21, ySize, vSize)
-        uBuffer.get(nv21, ySize + vSize, uSize)
-
-        val yuvImage = YuvImage(nv21, ImageFormat.NV21, image.width, image.height, null)
-        val out = ByteArrayOutputStream()
-        yuvImage.compressToJpeg(
-            Rect(ZERO, ZERO, yuvImage.width, yuvImage.height), QUALITY, out
-        )
-        val imageBytes = out.toByteArray()
-        return BitmapFactory.decodeByteArray(imageBytes, ZERO, imageBytes.size)
     }
 
     private fun openDogDetailActivity(dog:DogModel){
         val intent = Intent(this,DogDetailItemActivity::class.java)
         intent.putExtra(DOG_KEY, dog)
+        intent.putExtra(IS_RECOGNITION_KEY, true)
         startActivity(intent)
     }
 
@@ -237,7 +191,6 @@ class MainActivity : AppCompatActivity() {
                         .setNegativeButton(android.R.string.cancel){
                                 _,_ ->
                         }.show()
-
                 }
                 else -> {
                     requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
@@ -265,5 +218,4 @@ class MainActivity : AppCompatActivity() {
             cameraExecutor.shutdown()
         }
     }
-
 }

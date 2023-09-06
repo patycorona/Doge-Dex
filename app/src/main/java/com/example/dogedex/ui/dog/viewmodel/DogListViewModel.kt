@@ -3,8 +3,6 @@ package com.example.dogedex.ui.dog.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dogedex.data.model.request.DogToUserRequest
-import com.example.dogedex.data.model.response.DefaultResponse
 import com.example.dogedex.domain.model.DogModel
 import com.example.dogedex.domain.usecase.DogUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,23 +17,10 @@ class DogListViewModel @Inject constructor(
     val dogList: MutableLiveData<List<DogModel>> by lazy {
         MutableLiveData<List<DogModel>>()
     }
-    val add_Dog: MutableLiveData<DefaultResponse> by lazy {
-        MutableLiveData<DefaultResponse>()
-    }
 
     fun getAllDogs() {
         viewModelScope.launch {
             dogList.value = dogUseCase.getAllDogs()
-        }
-    }
-
-    fun addDogToUser(id :Long){
-        val dogToUserRequest = DogToUserRequest(dogId = id)
-        viewModelScope.launch {
-            dogUseCase.addDogToUser(dogToUserRequest)
-
-            val isSuccess = add_Dog.value
-
         }
     }
 

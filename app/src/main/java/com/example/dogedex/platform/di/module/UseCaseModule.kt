@@ -2,8 +2,10 @@ package com.example.dogedex.platform.di.module
 
 import com.example.dogedex.data.repository.DogRepositoryImpl
 import com.example.dogedex.data.repository.AuthRepositoryImpl
+import com.example.dogedex.data.repository.ClassiFierRepositoryImpl
 import com.example.dogedex.domain.usecase.DogUseCase
 import com.example.dogedex.domain.usecase.AuthUseCase
+import com.example.dogedex.domain.usecase.ClassiFierUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,4 +21,8 @@ class UseCaseModule {
     @Provides
     fun userUseCaseProvider(userRepositoryImpl : AuthRepositoryImpl) =
         AuthUseCase(userRepositoryImpl)
+
+    @Provides
+    fun classiFierUseCaseProvider(classiFierRepositoryImpl: ClassiFierRepositoryImpl) =
+        ClassiFierUseCase(classiFierRepositoryImpl)
 }

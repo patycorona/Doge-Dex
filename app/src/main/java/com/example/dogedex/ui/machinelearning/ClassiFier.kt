@@ -11,6 +11,7 @@ import com.example.dogedex.domain.model.ConstantGeneral.Companion.ONE
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.TWO
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.ZERO
 import com.example.dogedex.domain.model.DogRecognition
+import dagger.hilt.android.AndroidEntryPoint
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.common.TensorProcessor
 import org.tensorflow.lite.support.common.ops.DequantizeOp
@@ -21,8 +22,10 @@ import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.label.TensorLabel
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.util.*
+import javax.inject.Inject
 
-class ClassiFier(tfLiteModel: MappedByteBuffer, private val labels: List<String>) {
+
+class ClassiFier @Inject constructor (tfLiteModel: MappedByteBuffer, private val labels: List<String>) {
     /**
      * Image size along the x axis.
      */
