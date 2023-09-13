@@ -34,8 +34,8 @@ import com.example.dogedex.domain.model.ConstantGeneral.Companion.MSG_RC_
 import com.example.dogedex.domain.model.ConstantGeneral.Companion.TAG
 import com.example.dogedex.domain.model.DogModel
 import com.example.dogedex.domain.model.DogRecognition
-import com.example.dogedex.ui.dog.views.DogDetailItemActivity
 import com.example.dogedex.ui.dog.views.DogListActivity
+import com.example.dogedex.ui.dog.views.compose.DogDetailComposeActivity
 import com.example.dogedex.ui.machinelearning.ClassiFier
 import com.example.dogedex.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -151,7 +151,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openDogDetailActivity(dog:DogModel){
-        val intent = Intent(this,DogDetailItemActivity::class.java)
+        val intent = Intent(this, DogDetailComposeActivity::class.java)
+
         intent.putExtra(DOG_KEY, dog)
         intent.putExtra(IS_RECOGNITION_KEY, true)
         startActivity(intent)

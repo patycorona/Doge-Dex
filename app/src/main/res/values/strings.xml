@@ -32,10 +32,9 @@
     <string name="accept_permissions">Accept the permissions</string>
     <string name="accept_permissions_msg">accept the permissions to be able to use the camera.</string>
     <string name="error_photo_uri">Error showing image no photo uri</string>
-
-
-
-
+    <string name="title_activity_dog_detail_compose">DogDetailComposeActivity</string>
+    <string name="error_dialog">Oops, something happened!</string>
+    <string name="try_again">Try again\n</string>
 
 
 </resources>

@@ -31,6 +31,5 @@ class ConstantGeneral {
         const val DECUANTIZE_SCALE_1 = 1
         const val DECUANTIZE_SCALE = 255.0f
         const val DECUANTIZE_SCALE_ZERO = 0f
-
     }
 }
