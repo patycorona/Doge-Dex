@@ -24,5 +24,4 @@ class AuthRepositoryImpl @Inject constructor(var coreHomeApi: CoreHomeAPI) : Aut
             AuthModel(ID.toLong(), EMAIL, TOKEN)//coreHomeApi.login(loginRequest
         }
     }
-
 }

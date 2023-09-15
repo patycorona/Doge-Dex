@@ -21,6 +21,11 @@
         android:theme="@style/Theme.DogeDex"
         tools:targetApi="31">
         <activity
+            android:name=".ui.dog.views.compose.DogDetailComposeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_dog_detail_compose"
+            android:theme="@style/Theme.DogeDex" />
+        <activity
             android:name=".ui.dog.views.DogListActivity"
             android:exported="false" />
         <activity
@@ -28,7 +33,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.views.MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.auth.views.LoginActivity"
             android:exported="true">

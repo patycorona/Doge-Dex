@@ -66,7 +66,6 @@ class LoginFragment(
         }
     }
 
-
     private fun validaCampos() {
         binding?.apply {
 
