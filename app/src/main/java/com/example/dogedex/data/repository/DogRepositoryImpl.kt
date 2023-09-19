@@ -33,7 +33,7 @@ class DogRepositoryImpl @Inject constructor(private var coreHomeApi: CoreHomeAPI
             dogListApiResponse
         }
     }
-    private fun getListDogsByUser() : List<DogModel>{
+    fun getListDogsByUser() : List<DogModel>{
         val allDogListByUser = mutableListOf<DogModel>()
         allDogListByUser.add(MockRepository.getDogModelMock)
         allDogListByUser.add(MockRepository.getDogModelMock2)

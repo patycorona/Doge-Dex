@@ -1,4 +1,4 @@
-package com.example.dogedex
+package com.example.dogedex.viewmodel
 
 import org.junit.Test
 

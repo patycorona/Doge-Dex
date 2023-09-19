@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.dogedex.domain.model.DogModel
 import com.example.dogedex.domain.usecase.DogUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

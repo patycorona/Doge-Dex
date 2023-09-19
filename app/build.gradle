@@ -100,15 +100,19 @@ dependencies {
     // courutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutines"
 
+
     // For instrumentation tests
     androidTestImplementation "com.google.dagger:hilt-android-testing:$daggerHiltApp"
     kaptAndroidTest "com.google.dagger:hilt-compiler:$daggerHiltCompiler"
     androidTestImplementation "androidx.test.ext:junit:$extJUnit"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+
 
     // For local unit tests
     testImplementation "com.google.dagger:hilt-android-testing:$daggerHiltApp"
     "kaptTest 'com.google.dagger:hilt-compiler:$daggerHiltApp"
+
 
     //Rxjava
     implementation "io.reactivex.rxjava2:rxjava:$rxj2rxjava"
@@ -154,6 +158,7 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitokotlin2Version"
     testImplementation "androidx.arch.core:core-testing:$mockitokotlin2Version"
     testImplementation("org.mockito:mockito-inline:$mockitoInLine")
+    testImplementation "io.mockk:mockk:1.12.2"
 
     //Jetpack Compose
     implementation "androidx.compose.ui:ui:$JetpackComposeVersion"

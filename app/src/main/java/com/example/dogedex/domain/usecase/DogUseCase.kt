@@ -4,6 +4,7 @@ import com.example.dogedex.data.model.request.DogToUserRequest
 import com.example.dogedex.data.model.response.DefaultResponse
 import com.example.dogedex.data.repository.DogRepository
 import com.example.dogedex.domain.model.DogModel
+import com.google.android.gms.tasks.Tasks
 import javax.inject.Inject
 
 class DogUseCase @Inject constructor(var dogRepository: DogRepository) {
