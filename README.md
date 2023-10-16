@@ -26,3 +26,6 @@ https://github.com/patycorona/Doge-Dex/assets/65816817/27d9296d-6da5-4f1e-a980-0
        
 
 https://github.com/patycorona/Doge-Dex/assets/65816817/6e00999e-ed03-4bc9-b619-ad2e78062475
+
+![image](https://github.com/patycorona/Doge-Dex/assets/65816817/57cb4ce2-16d2-4ec3-9e4c-504d9131f7b3)
+
